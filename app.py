@@ -27,13 +27,13 @@ def insert_post():
         return Response("Please try again later", mimetype="plain/text", status=501)
 
 
-@app.post("/api/post")
+@app.get("/api/post")
 def get_blog_post():
     try:
-        success, post = db.get_all_post
+        success, post = db.get_all_posts()
         if(success):
             posts_json = json.dumps(post, default=str)
-            return Response(posts_json, default=str)
+            return Response(posts_json, mimetype="application/json", status=200)
         else:
             return Response("Please try again", mimetype="plain/text", status=201)
     except:

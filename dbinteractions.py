@@ -29,7 +29,7 @@ def insert_post(username, content):
     id = None
     conn, cursor = connect_db()
     try:
-        cursor.execute("INSERT INTO blog_post_warmup(username, content) VALUES(?,?)" [username, content,])
+        cursor.execute("INSERT INTO post(username, content) VALUES(?,?)", [username, content,])
         conn.commit()
         if(cursor.rowcount == 1):
             success = True
@@ -48,7 +48,7 @@ def get_all_posts():
     posts = []
     conn, cursor = connect_db()
     try:
-        cursor.execute("SELECT id, content, username, created_at FROM blog_post_warmup")
+        cursor.execute("SELECT id, content, username, created_at FROM post")
         posts = cursor.fetchall()
         success = True
     except db.ProgrammingError:
